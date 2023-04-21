@@ -1,0 +1,59 @@
+Projekt z Technologii Internetu
+
+Technologie:
+- JavaScript
+- HTML
+- CSS
+- Node JS
+- Docker
+
+2.2. MP0 - Definicja projektu
+
+Celem mini projektu jest określenie zakresu wymagań tworzonego projektu i modelu danych.
+
+    2.2.1. Określenie tematu
+    2.2.2. Zdefiniowanie modelu danych:
+        2.2.2.1. 3 tabele w bazie (w tym jedna relacja wiele-do-wiele zawierająca oprócz klucza głównego oraz kluczy obcych przynajmniej dwa dodatkowe pola)
+        2.2.2.2. Przynajmniej 3 różne typy pól (oprócz kluczy głównych i obcych)
+        2.2.2.3. Przynajmniej 2 pola biznesowe w każdej tabeli (chodzi o pola oprócz klucza głównego i kluczy obcych)
+        2.2.2.4. Przynajmniej jedno pole opcjonalne w modelu.
+        2.2.2.5. Przynajmniej jedno pole wymagane w każdej z tabel.
+
+2.3. MP1 - Statyczny wygląd dla wszystkich wymaganych widoków (HTML + CSS)
+
+Celem mini projektu stworzenie jest prototypu aplikacji w celu zaplanowania i przedstawienia interfejsu użytkownika. Wynikiem będą statyczne strony przedstawiające kompletny interfejs użytkownika z wykorzystaniem arkuszy stylów CSS.
+
+    2.3.1. Stworzenie kompletnej statycznej struktury w postaci plików HTML (przykład)
+    2.3.2. Określenie wyglądu strony za pomocą stylów CSS
+    2.3.3. Widoki muszą obejmować projekt interfejsu użytkownika dla poniższych funkcjonalności (dla każdej z tabel):
+        2.3.3.1. Dodawanie nowego rekordu do bazy danych
+        2.3.3.2. Modyfikacja rekordu w bazie danych
+        2.3.3.3. Usuwanie rekordu z bazy danych
+        2.3.3.4. Wyświetlenie listy wszystkich dostępnych rekordów (tylko najważniejsze kolumny)
+        2.3.3.5. Wyświetlenie widoku szczegółów rekordu tabeli jeden-do-wiele
+            2.3.3.5.1. wszystkie kolumny tabeli
+            2.3.3.5.2. rekordy powiązane relacją wiele-do-wiele
+        2.3.3.6. Wyświetlenie widoku szczegółów rekordu tabeli m:n
+            wszystkie kolumny tabeli oprócz kluczy obcych
+            dla kluczy obcych najważniejsze kolumny biznesowe powiązanych rekordów
+        2.3.3.7. Komunikaty
+            2.3.3.7.1. po dodaniu nowego rekordu
+            2.3.3.7.2. po zmodyfikowaniu rekordu
+            2.3.3.7.3. przed usunięciem rekordu z prośbą o potwierdzenie
+            2.3.3.7.4. po usunięciu rekordu
+        2.3.3.8. Komunikaty błędów walidacji formularza
+            2.3.3.8.1. wyróżnienie błędnego pola
+            2.3.3.8.2. komunikat z opisem błędu
+            2.3.3.8.3. podsumowanie błędów
+    2.3.4. Nie można korzystać z zewnętrznych bibliotek np. Bootstrap, cały HTML + CSS musi być napisany samodzielnie od zera.
+    2.3.5. Wszystkie stworzone dokumenty HTML powinny pozytywnie przechodzić walidację W3C
+    2.3.6. Wszystkie stworzone style CSS powinny pozytywnie przechodzić walidację W3C
+
+2.4. MP2 - Działająca aplikacja z podstawowym zakresem funkcjonalności
+
+Celem mini projektu jest implementacja wszystkich funkcjonalności opisanych i zaprojektowanych w poprzednich mini projektach.
+
+    2.4.1. Wszystkie dane przechowywane w systemie muszą być trwałe z wykorzystaniem relacyjnej bazy danych.
+    2.4.2. Przy tworzeniu oraz edycji rekordu dane powinny przechodzić walidację:
+        2.4.2.1. Po stronie klienta (Javascript w przeglądarce)
+        2.4.2.2. Po stronie serwera
