@@ -1,0 +1,66 @@
+<%- include('../../fragments/header.ejs') %>
+        <main>
+            <script type="application/javascript" src="/js/validationRoleForm.js"></script>
+            <h2><%= pageTitle %></h2>
+            <form class="form" method="post" action="<%= formAction %>" novalidate>
+                <input type="hidden" name="idRole" value="<%= role.idRole %>">
+
+                <label for="actorName">Aktor:<span class="symbol-required">*</span></label>
+                <select name="idActor" id="actor" class="<%= validationErrors.find(e => e.path.includes('idActor')) ? 'error-input' : '' %>" required <%= (formMode == 'showDetails') ? 'disabled' : ''%>>
+                    <option value="" selected>--- Wybierz aktora ---</option>
+                    <% for (let i=0; i<allActors.length; i++) { let actor = allActors[i]; %>
+                    <option value="<%= actor.idActor %>" label="<%= actor.firstName + ' ' + actor.lastName %>" <%= (role.idRole && actor.idActor.toString() == role.actor.idActor.toString()) ? 'selected' : '' %>></option>
+                    <% } %>
+                </select>
+                <span id="errorActorName" class="errors-text">
+                    <% if(validationErrors.find(e => e.path.includes('idActor'))) { %>
+                        <%= validationErrors.find(e => e.path.includes('idActor')).message %>
+                    <% } %>
+                </span>
+
+                <label for="filmName">Film:<span class="symbol-required">*</span></label>
+                <select name="idFilm" id="film" class="<%= validationErrors.find(e => e.path.includes('idFilm')) ? 'error-input' : '' %>" required <%= (formMode == 'showDetails') ? 'disabled' : ''%>>
+                    <option value="" selected>--- Wybierz film ---</option>
+                    <% for (let i=0; i<allFilms.length; i++) { let film = allFilms[i]; %>
+                    <option value="<%= film.idFilm %>" label="<%= film.filmName %>" <%= (role.idRole && film.idFilm.toString() == role.film.idFilm.toString()) ? 'selected' : '' %>></option>
+                    <% } %>
+                </select>
+                <span id="errorFilmName" class="errors-text">
+                    <% if(validationErrors.find(e => e.path.includes('idFilm'))) { %>
+                        <%= validationErrors.find(e => e.path.includes('idFilm')).message %>
+                    <% } %>
+                </span>
+
+                <label for="roleName">Rola:<span class="symbol-required">*</span></label>
+                <input type="text" name="roleName" id="roleName" class="<%= validationErrors.find(e => e.path.includes('roleName')) ? 'error-input' : '' %>" placeholder="2-20 znaków" value="<%= role.roleName %>" required <%= (formMode == 'showDetails') ? 'disabled' : '' %>/>
+                <span id="errorRoleName" class="errors-text">
+                    <% if(validationErrors.find(e => e.path.includes('roleName'))) { %>
+                        <%= validationErrors.find(e => e.path.includes('roleName')).message %>
+                    <% } %>
+                </span>
+
+                <label for="roleAge">Wiek roli:</label>
+                <input type="text" name="roleAge" id="roleAge" class="<%= validationErrors.find(e => e.path.includes('roleAge')) ? 'error-input' : '' %>" value="<%= role.roleAge %>" <%= (formMode == 'showDetails') ? 'disabled' : '' %>/>
+                <span id="errorRoleAge" class="errors-text">
+                    <% if(validationErrors.find(e => e.path.includes('roleAge'))) { %>
+                        <%= validationErrors.find(e => e.path.includes('roleAge')).message %>
+                    <% } %>
+                </span>
+
+                <% if(formMode == 'showDetails') { %>
+                    <div class="form-buttons">
+                        <a href="/roles/edit/<%= role.idRole %>" class="form-button-edit">Edytuj</a>
+                    </div>
+                <% } %>
+                <div class="form-buttons">
+                    <p id="errorsSummary" class="errors-text"></p>
+                    <% if(formMode != 'showDetails') { %>
+                        <input type="submit" value="<%= btnLabel %>" class="form-button-submit"/>
+                        <a href="/roles" class="form-button-cancel">Anuluj</a>
+                    <% } else { %>
+                        <a href="/roles" class="form-button-cancel">Powrót</a>
+                    <% } %>
+                </div>
+            </form>
+        </main>
+        <%- include('../../fragments/footer.ejs') %>

@@ -1,0 +1,34 @@
+<%- include('../../fragments/header.ejs') %>
+        <main>
+            <h2>Lista ról</h2>
+            <table class="table-list">
+                <thead>
+                    <tr>
+                        <th>Aktor</th>
+                        <th>Film</th>
+                        <th>Rola</th>
+                        <th>Wiek roli</th>
+                        <th>Akcje</th>
+                    </tr>
+                </thead>
+                <tbody>
+                <% for (let role of roles) { %>
+                    <tr>
+                        <td><%= role.actor.firstName + ' ' + role.actor.lastName %></td>
+                        <td><%= role.film.filmName %></td>
+                        <td><%= role.roleName %></td>
+                        <td><%= role.roleAge %></td>
+                        <td>
+                            <ul class="list-actions">
+                                <li><a href="/roles/details/<%= role.idRole %>" class="list-actions-button-details">Szczegóły</a></li>
+                                <li><a href="/roles/edit/<%= role.idRole %>" class="list-actions-button-edit">Edytuj</a></li>
+                                <li><a href="/roles/delete/<%= role.idRole %>" class="list-actions-button-delete">Usuń</a></li>
+                            </ul>
+                        </td>
+                    </tr>
+                <% } %>
+                </tbody>
+            </table>
+            <p><a href="/roles/add" class="button-add">Dodaj nową role</a></p>
+        </main>
+        <%- include('../../fragments/footer.ejs') %>

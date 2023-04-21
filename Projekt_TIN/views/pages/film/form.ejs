@@ -1,0 +1,76 @@
+<%- include('../../fragments/header.ejs') %>
+        <main>
+            <script type="application/javascript" src="/js/validationFilmForm.js"></script>
+            <h2><%= pageTitle %></h2>
+            <form class="form" method="post" action="<%= formAction %>" novalidate>
+                <input type="hidden" name="idFilm" value="<%= film.idFilm %>">
+
+                <label for="filmName">Tytuł:<span class="symbol-required">*</span></label>
+                <input type="text" name="filmName" id="filmName" class="<%= validationErrors.find(e => e.path.includes('filmName')) ? 'error-input' : '' %>" value="<%= film.filmName %>" required <%= (formMode == 'showDetails') ? 'disabled' : '' %>/>
+                <span id="errorFilmName" class="errors-text">
+                    <% if(validationErrors.find(e => e.path.includes('filmName'))) { %>
+                        <%= validationErrors.find(e => e.path.includes('filmName')).message %>
+                    <% } %>
+                </span>
+
+                <label for="boxOffice">Box office:</label>
+                <input type="text" name="boxOffice" id="boxOffice" class="<%= validationErrors.find(e => e.path.includes('boxOffice')) ? 'error-input' : '' %>" value="<%= film.boxOffice %>" <%= (formMode == 'showDetails') ? 'disabled' : '' %>/>
+                <span id="errorBoxOffice" class="errors-text">
+                    <% if(validationErrors.find(e => e.path.includes('boxOffice'))) { %>
+                        <%= validationErrors.find(e => e.path.includes('boxOffice')).message %>
+                    <% } %>
+                </span>
+
+                <label for="releaseDate">Data premiery:<span class="symbol-required">*</span></label>
+                <input type="text" name="releaseDate" id="releaseDate" class="<%= validationErrors.find(e => e.path.includes('releaseDate')) ? 'error-input' : '' %>" value="<%= fmt.formatDate(film.releaseDate) %>"
+                required <%= (formMode == 'showDetails') ? 'disabled' : '' %>/>
+                <span id="errorReleaseDate" class="errors-text">
+                    <% if(validationErrors.find(e => e.path.includes('releaseDate'))) { %>
+                        <%= validationErrors.find(e => e.path.includes('releaseDate')).message %>
+                    <% } %>
+                </span>
+
+                <% if(formMode == 'showDetails') { %>
+                    <div class="form-buttons">
+                        <a href="/films/edit/<%= film.idFilm %>" class="form-button-edit">Edytuj</a>
+                    </div>
+                <% } %>
+                <div class="form-buttons">
+                    <p id="errorsSummary" class="errors-text"></p>
+                    <% if(formMode != 'showDetails') { %>
+                        <input type="submit" value="<%= btnLabel %>" class="form-button-submit"/>
+                        <a href="/films" class="form-button-cancel">Anuluj</a>
+                    <% } %>
+                </div>
+            </form>
+
+            <% if(formMode == 'showDetails' || formMode == 'edit') { %>
+                <h2>Szczegóły ról</h2>
+                <table class="table-list">
+                    <thead>
+                        <tr>
+                            <th>Aktor</th>
+                            <th>Rola</th>
+                            <th>Wiek roli</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    <% for (let role of film.roles) { %>
+                        <tr>
+                            <td><a href="/actors/details/<%= role.actor.idActor %>"><%= role.actor.firstName + ' ' + role.actor.lastName%></a></td>
+                            <td><%= role.roleName %></td>
+                            <td><%= role.roleAge %></td>
+                        </tr>
+                    <% } %>    
+                    </tbody>
+                </table>
+                <% } %>
+
+                <div class="form-buttons">
+                    <p id="errorsSummary" class="errors-text"></p>
+                    <% if(formMode == 'showDetails') { %>
+                        <a href="/films" class="form-button-cancel">Powrót</a>
+                    <% } %>
+                </div>
+        </main>
+        <%- include('../../fragments/footer.ejs') %>

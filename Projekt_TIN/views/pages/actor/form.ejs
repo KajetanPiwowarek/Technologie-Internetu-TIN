@@ -1,0 +1,91 @@
+<%- include('../../fragments/header.ejs') %>
+        <main>
+            <script type="application/javascript" src="/js/validationActorForm.js"></script>
+            <h2><%= pageTitle %></h2>
+            <form class="form" method="post" action="<%= formAction %>" novalidate>
+                <input type="hidden" name="idActor" value="<%= actor.idActor %>">
+
+                <label for="firstName">Imię:<span class="symbol-required">*</span></label>
+                <input type="text" name="firstName" id="firstName" class="<%= validationErrors.find(e => e.path.includes('firstName')) ? 'error-input' : '' %>" placeholder="2-20 znaków" value="<%= actor.firstName %>" required <%= (formMode == 'showDetails') ? 'disabled' : '' %>/>
+                <span id="errorFirstName" class="errors-text">
+                    <% if(validationErrors.find(e => e.path.includes('firstName'))) { %>
+                        <%= validationErrors.find(e => e.path.includes('firstName')).message %>
+                    <% } %>
+                </span>
+
+                <label for="lastName">Nazwisko:<span class="symbol-required">*</span></label>
+                <input type="text" name="lastName" id="lastName" class="<%= validationErrors.find(e => e.path.includes('lastName')) ? 'error-input' : '' %>" placeholder="2-20 znaków" value="<%= actor.lastName %>" required <%= (formMode == 'showDetails') ? 'disabled' : '' %>/>
+                <span id="errorLastName" class="errors-text">
+                    <% if(validationErrors.find(e => e.path.includes('lastName'))) { %>
+                        <%= validationErrors.find(e => e.path.includes('lastName')).message %>
+                    <% } %>
+                </span>
+
+                <label for="birthDate">Data urodzenia:<span class="symbol-required">*</span></label>
+                <input type="text" name="birthDate" id="birthDate" class="<%= validationErrors.find(e => e.path.includes('birthDate')) ? 'error-input' : '' %>" placeholder="yyyy-mm-dd" value="<%= fmt.formatDate(actor.birthDate) %>"
+                required <%= (formMode == 'showDetails') ? 'disabled' : '' %>/>
+                <span id="errorBirthDate" class="errors-text">
+                    <% if(validationErrors.find(e => e.path.includes('birthDate'))) { %>
+                        <%= validationErrors.find(e => e.path.includes('birthDate')).message %>
+                    <% } %>
+                </span>
+
+                <label for="email">Email:<span class="symbol-required">*</span></label>
+                <input type="text" name="email" id="email" class="<%= validationErrors.find(e => e.path.includes('email')) ? 'error-input' : '' %>" placeholder="nazwa@domena.pl" value="<%= actor.email %>" required <%= (formMode == 'showDetails') ? 'disabled' : '' %>/>
+                <span id="errorEmail" class="errors-text">
+                    <% if(validationErrors.find(e => e.path.includes('email'))) { %>
+                        <%= validationErrors.find(e => e.path.includes('email')).message %>
+                    <% } %>
+                </span>
+
+                <label for="phoneNumber">Numer telefonu:</label>
+                <input type="tel" name="phoneNumber" id="phoneNumber" class="<%= validationErrors.find(e => e.path.includes('phoneNumber')) ? 'error-input' : '' %>" placeholder="xxx-xxx-xxx" value="<%= actor.phoneNumber %>" <%= (formMode == 'showDetails') ? 'disabled' : '' %>/>
+                <span id="errorPhoneNumber" class="errors-text">
+                    <% if(validationErrors.find(e => e.path.includes('phoneNumber'))) { %>
+                        <%= validationErrors.find(e => e.path.includes('phoneNumber')).message %>
+                    <% } %>
+                </span>
+
+                <% if(formMode == 'showDetails') { %>
+                    <div class="form-buttons">
+                        <a href="/actors/edit/<%= actor.idActor %>" class="form-button-edit">Edytuj</a>
+                    </div>
+                <% } %>
+                <div class="form-buttons">
+                    <p id="errorsSummary" class="errors-text"></p>
+                    <% if(formMode != 'showDetails') { %>
+                        <input type="submit" value="<%= btnLabel %>" class="form-button-submit"/>
+                        <a href="/actors" class="form-button-cancel">Anuluj</a>
+                    <% } %>
+                </div>
+            </form>
+
+                <% if(formMode == 'showDetails' || formMode == 'edit') { %>
+                <h2>Szczegóły ról</h2>
+                <table class="table-list">
+                    <thead>
+                        <tr>
+                            <th>Film</th>
+                            <th>Rola</th>
+                            <th>Wiek roli</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    <% for (let role of actor.roles) { %>
+                        <tr>
+                            <td><a href="/films/details/<%= role.film.idFilm %>"><%= role.film.filmName %></a></td>
+                            <td><%= role.roleName %></td>
+                            <td><%= role.roleAge %></td>
+                        </tr>
+                    <% } %>    
+                    </tbody>
+                </table>
+                <% } %>
+                <div class="form-buttons">
+                    <p id="errorsSummary" class="errors-text"></p>
+                    <% if(formMode == 'showDetails') { %>
+                        <a href="/actors" class="form-button-cancel">Powrót</a>
+                    <% } %>
+                </div>
+        </main>
+        <%- include('../../fragments/footer.ejs') %>

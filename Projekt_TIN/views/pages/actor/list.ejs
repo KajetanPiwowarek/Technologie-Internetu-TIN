@@ -1,0 +1,36 @@
+<%- include('../../fragments/header.ejs') %>
+        <main>
+            <h2>Lista aktorów</h2>
+            <table class="table-list">
+                <thead>
+                    <tr>
+                        <th>Imię</th>
+                        <th>Nazwisko</th>
+                        <th>Data urodzenia</th>
+                        <th>Email</th>
+                        <th>Numer telefonu</th>
+                        <th>Akcje</th>
+                    </tr>
+                </thead>
+                <tbody>
+                <% for (let actor of actors) { %>
+                    <tr>
+                        <td><%= actor.firstName %></td>
+                        <td><%= actor.lastName %></td>
+                        <td><%= actor.birthDate.toISOString().split('T') [0] %></td>
+                        <td><%= actor.email %></td>
+                        <td><%= actor.phoneNumber %></td>
+                        <td>
+                            <ul class="list-actions">
+                                <li><a href="/actors/details/<%= actor.idActor %>" class="list-actions-button-details">Szczegóły</a></li>
+                                <li><a href="/actors/edit/<%= actor.idActor %>" class="list-actions-button-edit">Edytuj</a></li>
+                                <li><a href="/actors/delete/<%= actor.idActor %>" class="list-actions-button-delete">Usuń</a></li>
+                            </ul>
+                        </td>
+                    </tr>
+                <% } %>
+                </tbody>
+            </table>
+            <p><a href="/actors/add" class="button-add">Dodaj nowego aktora</a></p>
+        </main>
+        <%- include('../../fragments/footer.ejs') %>
